@@ -1,0 +1,46 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.center{
+    text-align: center;
+}
+
+.cvs-container{
+    width: 100%;
+    height: calc(100% - 50px);
+    max-height: 1024px;
+}
+
+#canvas{
+    display: inline-block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+#canvas.mobile{
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+}
+
+#tip{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    font-size: 40px;
+    text-align: center;
+    background: gray;
+    color: white;
+    font-style: italic;
+}
+
+.footer{
+    text-align: center;
+    border-top: 1px black solid;
+}

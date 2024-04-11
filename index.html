@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./main.css" />
+    <title>涂抹可见图</title>
+  </head>
+  <body>
+    <div id="tip">图片加载中...</div>
+    <div class="center cvs-container">
+      <canvas id="canvas" width="1024" height="1024"></canvas>
+    </div>
+    <div class="footer">
+      Made by <a href="https://github.com/zxy19/circled_image">xypp</a>
+    </div>
+    <script>
+      var exports = {};
+    </script>
+    <script src="./depthProcessor.js"></script>
+    <script>
+      function init(url, data) {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var depthProcessor = new DepthProcessor(ctx, url, data);
+        canvas.addEventListener("mousemove", function (e) {
+          var x = Math.floor((e.offsetX / canvas.offsetWidth) * canvas.width);
+          var y = Math.floor((e.offsetY / canvas.offsetHeight) * canvas.height);
+          for (let i = -30; i <= 30; i++) {
+            for (let j = -30; j <= 30; j++) {
+              depthProcessor.splitArea(x + i, y + j);
+            }
+          }
+        });
+        canvas.addEventListener("touchmove", function (e) {
+          var x = Math.floor(
+            (e.touches[0].clientX / canvas.offsetWidth) * canvas.width
+          );
+          var y = Math.floor(
+            (e.touches[0].clientY / canvas.offsetHeight) * canvas.height
+          );
+          for (let i = -30; i <= 30; i++) {
+            for (let j = -30; j <= 30; j++) {
+              depthProcessor.splitArea(x + i, y + j);
+            }
+          }
+        });
+
+        function updateFrame(tick) {
+          depthProcessor.updateAnimation(tick);
+          window.requestAnimationFrame(updateFrame);
+        }
+        setTimeout(() => window.requestAnimationFrame(updateFrame), 200);
+      }
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        }
+        return false;
+      }
+      window.onresize = () => {
+        if (document.body.offsetHeight > document.body.offsetWidth) {
+          document.getElementById("canvas").className = "mobile";
+        } else {
+          document.getElementById("canvas").className = "";
+        }
+      };
+      window.onload = () => {
+        if (document.body.offsetHeight > document.body.offsetWidth) {
+          document.getElementById("canvas").className = "mobile";
+        } else {
+          document.getElementById("canvas").className = "";
+        }
+      };
+    </script>
+    <script>
+      // fetch("./data.php?id=" + getQueryVariable("id"))
+      //   .then(function (response) {
+      //     return response.json();
+      //   })
+      //   .then(function (data) {
+      //     init(data.url, data.data);
+      //   });
+      init("a.png", {});
+    </script>
+  </body>
+</html>
