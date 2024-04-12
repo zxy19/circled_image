@@ -3,7 +3,9 @@
 > 群友快乐刮刮乐
 
 demo: [https://circled_img.xypp.cc/?id=2](https://circled_img.xypp.cc/?id=2)
+
 demo(矩形): [https://circled_img.xypp.cc/?id=9](https://circled_img.xypp.cc/?id=9)
+
 demo(最小分片): [https://circled_img.xypp.cc/?id=10](https://circled_img.xypp.cc/?id=10)
 
 demo所用图片来自https://www.pixiv.net/artworks/111582057
