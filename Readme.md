@@ -14,7 +14,7 @@ demo所用图片来自https://www.pixiv.net/artworks/111582057
 
 ```bash
 tsc --outDir ./ --lib es5,dom ts/depthProcessor.ts
-```
+``` 
 
 ## 说明
 由于涉及服务器信息，服务器相关的内容尚未提供。可以自行实现data.php并将html中的注释恢复。
