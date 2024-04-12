@@ -236,29 +236,28 @@ var DepthProcessor = /** @class */ (function () {
                 _this.inAnimation[elem.x][elem.y] = false;
                 elem.done = true;
                 _this.setDepth(elem.x, elem.y, elem.w, elem.h, elem.depth - 1);
+                progress = 1;
             }
-            else {
-                _this.ctx.clearRect(elem.x, elem.y, elem.w, elem.h);
-                dir.forEach(function (_a, i) {
-                    var mulX = _a[0], mulY = _a[1];
-                    var tx = elem.x + mulX * progress * elem.w / 2;
-                    var ty = elem.y + mulY * progress * elem.h / 2;
-                    var ww = Math.floor(elem.w / 2) * (2 - progress);
-                    var hh = Math.floor(elem.h / 2) * (2 - progress);
-                    var xOffset = ww / 2;
-                    var yOffset = hh / 2;
-                    var radius = Math.min(xOffset, yOffset) * 0.95;
-                    _this.ctx.fillStyle = "rgb(".concat(elem.color[i].join(','), ")");
-                    if (_this.rect) {
-                        _this.ctx.fillRect(tx, ty, ww, hh);
-                    }
-                    else {
-                        _this.ctx.beginPath();
-                        _this.ctx.arc(tx + xOffset, ty + yOffset, radius, 0, 2 * Math.PI);
-                        _this.ctx.fill();
-                    }
-                });
-            }
+            _this.ctx.clearRect(elem.x, elem.y, elem.w, elem.h);
+            dir.forEach(function (_a, i) {
+                var mulX = _a[0], mulY = _a[1];
+                var tx = elem.x + mulX * progress * elem.w / 2;
+                var ty = elem.y + mulY * progress * elem.h / 2;
+                var ww = Math.floor(elem.w / 2) * (2 - progress);
+                var hh = Math.floor(elem.h / 2) * (2 - progress);
+                var xOffset = ww / 2;
+                var yOffset = hh / 2;
+                var radius = Math.min(xOffset, yOffset) * 0.95;
+                _this.ctx.fillStyle = "rgb(".concat(elem.color[i].join(','), ")");
+                if (_this.rect) {
+                    _this.ctx.fillRect(tx, ty, ww, hh);
+                }
+                else {
+                    _this.ctx.beginPath();
+                    _this.ctx.arc(tx + xOffset, ty + yOffset, radius, 0, 2 * Math.PI);
+                    _this.ctx.fill();
+                }
+            });
         });
         this.animationElems = this.animationElems.filter(function (e) { return !e.done; });
     };

@@ -251,28 +251,30 @@ export class DepthProcessor {
                 this.inAnimation[elem.x][elem.y] = false;
                 elem.done = true;
                 this.setDepth(elem.x, elem.y, elem.w, elem.h, elem.depth - 1);
-            } else {
-                this.ctx.clearRect(elem.x, elem.y, elem.w, elem.h);
-                dir.forEach(([mulX, mulY], i) => {
-                    const tx = elem.x + mulX * progress * elem.w / 2;
-                    const ty = elem.y + mulY * progress * elem.h / 2;
-                    const ww = Math.floor(elem.w / 2) * (2 - progress);
-                    const hh = Math.floor(elem.h / 2) * (2 - progress);
-
-                    const xOffset = ww / 2;
-                    const yOffset = hh / 2;
-                    const radius = Math.min(xOffset, yOffset) * 0.95;
-                    this.ctx.fillStyle = `rgb(${elem.color![i].join(',')})`;
-
-                    if (this.rect) {
-                        this.ctx.fillRect(tx, ty, ww, hh);
-                    } else {
-                        this.ctx.beginPath();
-                        this.ctx.arc(tx + xOffset, ty + yOffset, radius, 0, 2 * Math.PI);
-                        this.ctx.fill();
-                    }
-                })
+                progress = 1;
             }
+
+            this.ctx.clearRect(elem.x, elem.y, elem.w, elem.h);
+            dir.forEach(([mulX, mulY], i) => {
+                const tx = elem.x + mulX * progress * elem.w / 2;
+                const ty = elem.y + mulY * progress * elem.h / 2;
+                const ww = Math.floor(elem.w / 2) * (2 - progress);
+                const hh = Math.floor(elem.h / 2) * (2 - progress);
+
+                const xOffset = ww / 2;
+                const yOffset = hh / 2;
+                const radius = Math.min(xOffset, yOffset) * 0.95;
+                this.ctx.fillStyle = `rgb(${elem.color![i].join(',')})`;
+
+                if (this.rect) {
+                    this.ctx.fillRect(tx, ty, ww, hh);
+                } else {
+                    this.ctx.beginPath();
+                    this.ctx.arc(tx + xOffset, ty + yOffset, radius, 0, 2 * Math.PI);
+                    this.ctx.fill();
+                }
+            })
+            
         })
         this.animationElems = this.animationElems.filter(e => !e.done)
     }
